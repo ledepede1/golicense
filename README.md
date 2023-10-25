@@ -1,8 +1,7 @@
 # License System
 <p>Hello, i've been working with this project and will now put it out to the public.
-I have made it for people that is interested in securing there FiveM scripts but you can also use it for other usecases than FiveM scripting by changing the</p> ```json
-"UsingFiveM": bool
-```. <p>in the config.json.</p>
+I have made it for people that is interested in securing there FiveM scripts but you can also use it for other usecases than FiveM scripting by changing the</p> 
+```UsingFiveM```. <p>in the config.json.</p>
 
 <p>It's not something that you should use for primarily safety but i will work on getting it to a higher security level. I have begun a website for it where you can Delete, Add licenses and so on, this is something that will need to running private since im not working on making the login more safe.</p>
 
