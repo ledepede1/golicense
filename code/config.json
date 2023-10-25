@@ -1,0 +1,6 @@
+{
+        "UsingFiveM": true, 
+        "Important": "Set to false if you're using something else than FiveM",
+        "DBUrl": "",
+        "Port": "8080"
+}
