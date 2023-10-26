@@ -7,14 +7,16 @@ import (
 	"os"
 )
 
+var filename string = "config.json"
+
 type Config struct {
 	Fivem bool   `json:"UsingFiveM"`
 	DBUrl string `json:"DBUrl"`
 	Port  string `json:"Port"`
 }
 
-func GetUseFivem() bool {
-	jsonFile, err := os.Open("config.json")
+func GetCfg(returnValue string) (string, bool) {
+	jsonFile, err := os.Open(filename)
 
 	if err != nil {
 		fmt.Println(err)
@@ -27,40 +29,29 @@ func GetUseFivem() bool {
 
 	json.Unmarshal(byteValue, &cfgData)
 
-	return cfgData.Fivem
+	switch returnValue {
+	case "Fivem":
+		return "", cfgData.Fivem
+	case "DBUrl":
+		return cfgData.DBUrl, false
+	case "Port":
+		return cfgData.Port, false
+	default:
+		return "Error", false
+	}
+}
+
+func GetUseFivem() bool {
+	_, getCfg := GetCfg("Fivem")
+	return getCfg
 }
 
 func GetDBUrl() string {
-
-	jsonFile, err := os.Open("config.json")
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	defer jsonFile.Close()
-	byteValue, _ := io.ReadAll(jsonFile)
-
-	var cfgData Config
-
-	json.Unmarshal(byteValue, &cfgData)
-
-	return cfgData.DBUrl
+	getCfg, _ := GetCfg("DBUrl")
+	return getCfg
 }
+
 func GetPort() string {
-
-	jsonFile, err := os.Open("config.json")
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	defer jsonFile.Close()
-	byteValue, _ := io.ReadAll(jsonFile)
-
-	var cfgData Config
-
-	json.Unmarshal(byteValue, &cfgData)
-
-	return cfgData.Port
+	getCfg, _ := GetCfg("Port")
+	return getCfg
 }

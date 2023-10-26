@@ -13,7 +13,8 @@ func API(response http.ResponseWriter, request *http.Request) {
 	license := vars["license"]
 	resourcename := vars["resourcename"]
 
-	fmt.Println("\nIP Connected:", checkSentIP(request))
+	fmt.Println("\n----------------------------------------------------------------------------------------")
+	fmt.Println("IP Connected:", checkSentIP(request))
 
 	if !GetUseFivem() {
 		checkDatabase := CheckDB(string(license), string(ipaddr), checkSentIP(request), string(resourcename))

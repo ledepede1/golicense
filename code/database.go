@@ -13,18 +13,21 @@ var dbURL string = GetDBUrl()
 func CheckDB(license string, ipaddr string, actualip string, resourcename string) string {
 
 	fmt.Println("Begninning license check...")
+	fmt.Println("")
 
 	if CheckIfLicenseExist(license, ipaddr) {
 		fmt.Println("FIRST CHECK PASSED")
 		if CheckIPListed(license, ipaddr, actualip, resourcename) {
 			fmt.Println("SECOND CHECK PASSED")
+			fmt.Println("\nAll checks passed")
+			fmt.Println("----------------------------------------------------------------------------------------")
 			return "valid"
 		} else {
-			fmt.Println("CHECKS *NOT* PASSED")
+			fmt.Println("\nCHECKS *NOT* PASSED")
+			fmt.Println("----------------------------------------------------------------------------------------")
 			return "invalid"
 		}
 	}
-
 	return "invalid"
 }
 
@@ -40,13 +43,13 @@ func CheckIfLicenseExist(license string, ipaddr string) bool {
 	licenseQuerry := db.QueryRow("SELECT license FROM licenses WHERE license = ?", license).Scan(&fetchedLicense)
 
 	if licenseQuerry == sql.ErrNoRows {
-		fmt.Println("Invalid license: ", license)
+		fmt.Println("Invalid license: " + " '" + license + "'")
 		return false
 	} else if licenseQuerry != nil {
 		fmt.Println("Error: ", licenseQuerry)
 		return false
 	} else {
-		fmt.Println("Successfully checked license:", license)
+		fmt.Println("Successfully checked license:" + " '" + license + "'")
 		return true
 	}
 }
@@ -64,10 +67,10 @@ func CheckIPListed(license string, sentipaddr string, actualip string, resourcen
 
 	if actualip == ipadress {
 		if ipcheckQuery == sql.ErrNoRows {
-			fmt.Printf("No IP-Adress with that license%s", license)
+			fmt.Println("No ipadress associated with that license" + " '" + license + "'")
 			return false
 		} else if sentipaddr == ipadress {
-			fmt.Printf("IP: "+sentipaddr+" Setted up with: %s\n", license)
+			fmt.Println("IP: " + sentipaddr + " Setted up with:" + " '" + license + "'")
 
 			if !GetUseFivem() {
 				return true
@@ -75,7 +78,7 @@ func CheckIPListed(license string, sentipaddr string, actualip string, resourcen
 				if CheckFiveMResourceName(resourcename, license) {
 					return true
 				} else {
-					fmt.Println("Resourcename: " + resourcename + " Is not setted up to license: " + license)
+					fmt.Println("Resourcename: " + "'" + resourcename + "'" + " Is not setted up to license: " + "'" + license + "'")
 				}
 			}
 		}
@@ -97,10 +100,10 @@ func CheckFiveMResourceName(resourcename string, license string) bool {
 	resourcenameQuery := db.QueryRow("SELECT resourcename FROM licenses WHERE license = ?", license).Scan(&savedresourcename)
 
 	if resourcenameQuery == sql.ErrNoRows {
-		fmt.Printf("No Resourcename with license%s", license)
+		fmt.Println("No Resourcename with license" + " '" + license + "'")
 		return false
 	} else if savedresourcename == resourcename {
-		fmt.Printf("Resourcename: "+savedresourcename+" Is setted up to license: %s\n", license)
+		fmt.Println("Resourcename: " + "'" + savedresourcename + "'" + " Is setted up to license:" + " '" + license + "'")
 		return true
 	}
 	return false
