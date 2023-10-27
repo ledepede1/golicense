@@ -1,6 +1,6 @@
 # License System
 
-Welcome to the License System project! This system is designed to help secure your FiveM scripts, but it can also be adapted for various other use cases by modifying the 'UsingFiveM' setting in the `config.json`. While it's not intended to be the ultimate security solution, it provides a good starting point. Additionally, I have started work on a website where you can manage licenses, including adding and deleting them. Please note that the login system for this website should be strengthened if you plan to use it publicly.
+Welcome to the License System project! This system is designed to help secure your FiveM scripts, but it can also be adapted for various other use cases by modifying the `"UsingFiveM": <bool>` setting in the `config.json`. While it's not intended to be the ultimate security solution, it provides a good starting point. Additionally, I have started work on a website where you can manage licenses, including adding and deleting them. Please note that the login system for this website should be strengthened if you plan to use it publicly.
 
 This project is designed to run on a server or host, and personally, I prefer to use a VPS. It's implemented in Golang, so some knowledge of Go is necessary to set it up according to your requirements.
 
@@ -50,7 +50,7 @@ The system is implemented by integrating it into your script (examples are comin
 
 This system essentially works as an API. If you're using FiveM (set 'UsingFiveM' to true in the `config.json`), you make a request like this: `localhost:8080/api/fivem-bungeejump/LQC1h2WQwDBxEm6QlDhM/123.456.789`. Let's break it down:
 
-- The IP is typically set to localhost, as I run it locally.
+- The IP is in my case set to localhost, as I run it locally.
 - The port can be defined in the `config.json`.
 - The resource name is next in the URL, followed by the license key.
 - The IP address concludes the request.
