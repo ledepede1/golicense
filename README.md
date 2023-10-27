@@ -1,70 +1,62 @@
 # License System
-<p>Hello, i've been working with this project and will now put it out to the public.
-I have made it for people that is interested in securing there FiveM scripts but you can also use it for other usecases than FiveM scripting by changing the UsingFiveM in the config.json.</p>
 
-<p>It's not something that you should use for primarily safety but i will work on getting it to a higher security level. I have begun a website for it where you can Delete, Add licenses and so on, this is something that will need to running private since im not working on making the login more safe.</p>
+Welcome to the License System project! This system is designed to help secure your FiveM scripts, but it can also be adapted for various other use cases by modifying the 'UsingFiveM' setting in the `config.json`. While it's not intended to be the ultimate security solution, it provides a good starting point. Additionally, I have started work on a website where you can manage licenses, including adding and deleting them. Please note that the login system for this website should be strengthened if you plan to use it publicly.
 
-<p>The project is meant to be runned on a host of some sort if personally use a VPS. Its made in GOLang so you will need to have some GO knowledge for setting it up to your preferences.</p>
+This project is designed to run on a server or host, and personally, I prefer to use a VPS. It's implemented in Golang, so some knowledge of Go is necessary to set it up according to your requirements.
 
 ## Installation
 
-<p>Download the newest version on <github.link> to either your pc or a server, then if you want to change some of the code you will need to have installed GO on your pc and download the source code and from there build it! If thats not the case then dont worry.</p>
+1. Download the latest version from [GitHub](https://github.com/ledepede1/golicense/releases/latest) to either your local machine or a server. If you need to make code changes, make sure you have Go installed on your PC and download the source code. If not, no worries.
 
-<p>1. Firstly you will need to import the db.sql inside of your database.</p>
+2. Import the `db.sql` file into your database.
 
-<p>2. Setup your config.json to your preferences make sure that the DB url is setted up right: 
-localhost: `dbname:password@localhost/dbname` remote db: `name:password@tcp(ipadress:port)/dbname`</p>
+3. Configure the `config.json` to your preferences. Make sure the DB URL is correctly set, whether it's a local database (e.g., `dbname:password@localhost/dbname`) or a remote one (e.g., `name:password@tcp(ipaddress:port)/dbname`).
 
-<p>3. Run the installed license.exe and see it working.</p>
+4. Run the `license.exe` to see the system in action.
 
-<p>If you run it on localhost you will need to use this url `localhost:port/api/{resourcename}/{license}/{ipadresss}` dont mind the {resourcename} if not using FiveM in the config.json then it will just be `localhost:port/api/{license}/{ipadresss}`</p>
-
-<p>If you need any help contact me on discord via my Discord server: https://discord.gg/XW9WGTrrmJ</p>
+If you're running it on localhost, use this URL format: `localhost:port/api/{resourcename}/{license}/{ipaddress}`. If you're not using FiveM, it will be: `localhost:port/api/{license}/{ipaddress}`. If you need assistance, contact me on Discord via my [Discord server](https://discord.gg/XW9WGTrrmJ).
 
 ## Usage
-<p>If you want to add new licenses then you will need to add them manually inside the Database for now i'm working on a website for it!</p>
 
-<h8>Examples (Server sided)</h8>
+Currently, if you want to add new licenses, you'll need to do it manually in the database. I'm actively working on a website to simplify this process.
+
+### Examples (Server Sided)
+
 ```lua
-
 AddEventHandler('onResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
       return
     end
 
-  local CurrentResouceName = GetCurrentResourceName()
+    local CurrentResourceName = GetCurrentResourceName()
 
-    PerformHttpRequest("localhost:8080/api/".. CurrentResouceName .."/LQC1h2WQwDBxEm6QlDhM/123.456.789", function (errorCode, resultData, resultHeaders, errorData)
+    PerformHttpRequest("localhost:8080/api/".. CurrentResourceName .."/LQC1h2WQwDBxEm6QlDhM/123.456.789", function (errorCode, resultData, resultHeaders, errorData)
         Result = resultData
         if Result == "false" then 
-            print("Invalid licensekey contact the script owner to fix this issue!")
-            -- Then you could add something else like deleting the script or something
+            print("Invalid license key. Contact the script owner to resolve this issue.")
+            -- You could implement additional actions like disabling the script.
         else    
             print(resourceName .. ' has successfully loaded.')
         end
       end)
-    end)
-
+end)
 ```
 
-<p>Feel free to contribute with your own examples and ideas.</p>
+Feel free to contribute with your own examples and ideas.
 
-## How it works
-<p>The way it works is that you will implement it inside of your script (Examples comming soon), and then it will return back with either a "invalid" or "valid" string.
-You can then use that string to do what ever you want.</p> 
+## How It Works
 
-<p>But its basicaly a API you call it like this example (In this example we have "UsingFiveM": true inside the config.json) localhost:8080/api/fivem-bungeejump/LQC1h2WQwDBxEm6QlDhM/123.456.789 
-Okay so lets split it up</p> 
-<p>• we first have the ip which in our case is localhost because i run it local,</p> 
-<p>• and then we have a PORT which can be defined inside the config.json,</p>
-<p>• then we have the resourcename, and after that we have our licensekey,</p>
-<p>• and lastly the ipadress.</p>
+The system is implemented by integrating it into your script (examples are coming soon). It returns either an "invalid" or "valid" string, which you can use in various ways.
 
-<p>What then happens is that we make a call to the server running the license system where we send the resourcename the licensekey and the ipadress to the program. It then starts of checking if the licensekey exists if it does then we move on to checking the ipadress if the ipadress that is setted up to the licensekey in the database is the same as the API caller then we move on to checking if the resourcename sent is the same as the resourcename associated to the licensekey, if all of that succeeds then we return "valid" else it will just be a "invalid".
-</p>
+This system essentially works as an API. If you're using FiveM (set 'UsingFiveM' to true in the `config.json`), you make a request like this: `localhost:8080/api/fivem-bungeejump/LQC1h2WQwDBxEm6QlDhM/123.456.789`. Let's break it down:
+
+- The IP is typically set to localhost, as I run it locally.
+- The port can be defined in the `config.json`.
+- The resource name is next in the URL, followed by the license key.
+- The IP address concludes the request.
+
+The system then checks whether the license key exists, followed by an IP address check. If the provided IP matches the one associated with the license key in the database, and the resource name matches the one sent, it returns "valid"; otherwise, it returns "invalid".
 
 ## Contributing
 
-<p>I would love to see contributions to my project.</p>
-
-<p>Please make sure to update tests as appropriate.</p>
+I would greatly appreciate contributions to this project. Please make sure to update tests as needed and improve the project as you see fit. Together, we can make it even better.
