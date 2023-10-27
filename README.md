@@ -12,8 +12,8 @@ This project is designed to run on a server or host, and personally, I prefer to
 2. Import the `db.sql` file into your database.
 
 3. Configure the `config.json` to your preferences. Make sure the DB URL is correctly set,
-   <p>whether it's a local database (e.g., `dbname:password@localhost/dbname`)</p> 
-   <p></p>or a remote one (e.g., `name:password@tcp(ipaddress:port)/dbname`).</p>
+   - whether it's a local database (e.g., `dbname:password@localhost/dbname`) 
+   - or a remote one (e.g., `name:password@tcp(ipaddress:port)/dbname`).
 
 5. Run the `license.exe` to see the system in action.
 
