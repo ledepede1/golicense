@@ -11,9 +11,11 @@ This project is designed to run on a server or host, and personally, I prefer to
 
 2. Import the `db.sql` file into your database.
 
-3. Configure the `config.json` to your preferences. Make sure the DB URL is correctly set, whether it's a local database (e.g., `dbname:password@localhost/dbname`) or a remote one (e.g., `name:password@tcp(ipaddress:port)/dbname`).
+3. Configure the `config.json` to your preferences. Make sure the DB URL is correctly set,
+   <p>whether it's a local database (e.g., `dbname:password@localhost/dbname`)</p> 
+   <p></p>or a remote one (e.g., `name:password@tcp(ipaddress:port)/dbname`).</p>
 
-4. Run the `license.exe` to see the system in action.
+5. Run the `license.exe` to see the system in action.
 
 If you're running it on localhost, use this URL format: `localhost:port/api/{resourcename}/{license}/{ipaddress}`. If you're not using FiveM, it will be: `localhost:port/api/{license}/{ipaddress}`. If you need assistance, contact me on Discord via my [Discord server](https://discord.gg/XW9WGTrrmJ).
 
