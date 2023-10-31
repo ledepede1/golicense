@@ -33,7 +33,7 @@ AddEventHandler('onResourceStart', function(resourceName)
 
     local CurrentResourceName = GetCurrentResourceName()
 
-    PerformHttpRequest("localhost:8080/api/".. CurrentResourceName .."/LQC1h2WQwDBxEm6QlDhM/123.456.789", function (errorCode, resultData, resultHeaders, errorData)
+    PerformHttpRequest("localhost:8080/api/".. CurrentResourceName .."/LQC1h2WQwDBxEm6QlDhM", function (errorCode, resultData, resultHeaders, errorData)
         Result = resultData
         if Result == "false" then 
             print("Invalid license key. Contact the script owner to resolve this issue.")
