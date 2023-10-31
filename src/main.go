@@ -10,18 +10,21 @@ import (
 )
 
 func main() {
-	router := mux.NewRouter()
+	var urlVars string = "/api/{license}"
+	var port string = funcs.GetPort()
+	var usingFivem = funcs.GetUseFivem()
 
-	if !funcs.GetUseFivem() {
-		fmt.Println(color.InBlackOverYellow("UsingFiveM:"), funcs.GetUseFivem())
-		router.HandleFunc("/api/{license}/{ipadresss}", API).Methods("GET")
-	} else {
-		fmt.Println(color.InBlackOverYellow("UsingFiveM:"), color.Green, funcs.GetUseFivem())
-		router.HandleFunc("/api/{resourcename}/{license}/{ipadresss}", API).Methods("GET")
+	if usingFivem {
+		urlVars = "/api/{resourcename}/{license}"
 	}
 
-	fmt.Println(color.InBlackOverYellow("Listening on port:"), color.Green+funcs.GetPort(), color.Reset)
-	err := http.ListenAndServe(":"+funcs.GetPort(), router)
+	router := mux.NewRouter()
+
+	fmt.Println(color.InBlackOverYellow("UsingFiveM:"), usingFivem)
+	router.HandleFunc(urlVars, API).Methods("GET")
+
+	fmt.Println(color.InBlackOverYellow("Listening on port:"), color.Green+port, color.Reset)
+	err := http.ListenAndServe(":"+port, router)
 	if err != nil {
 		fmt.Println(err)
 	}

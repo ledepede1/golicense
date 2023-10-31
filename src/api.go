@@ -10,19 +10,35 @@ import (
 
 func API(response http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
-	ipaddr := vars["ipadresss"]
 	license := vars["license"]
 	resourcename := vars["resourcename"]
 
 	fmt.Println("\n----------------------------------------------------------------------------------------")
 	fmt.Println("IP Connected:", funcs.CheckSentIP(request))
 
-	if !funcs.GetUseFivem() {
-		checkDatabase := funcs.CheckDB(string(license), string(ipaddr), funcs.CheckSentIP(request), string(resourcename))
-		fmt.Fprint(response, checkDatabase)
-	} else {
-		checkDatabase := funcs.CheckDB(string(license), string(ipaddr), funcs.CheckSentIP(request), string(resourcename))
-		fmt.Fprint(response, checkDatabase)
-	}
+	checkDatabase := CheckDB(string(license), funcs.CheckSentIP(request), string(resourcename))
+	fmt.Fprint(response, checkDatabase)
+}
 
+func CheckDB(license string, actualip string, resourcename string) string {
+
+	fmt.Println("Begninning license check...")
+	fmt.Println("")
+
+	if funcs.CheckIfLicenseExist(license) {
+		fmt.Println("FIRST CHECK PASSED")
+		if funcs.CheckIPListed(license, actualip, resourcename) {
+			fmt.Println("SECOND CHECK PASSED")
+			fmt.Println("\nAll checks passed")
+			fmt.Println("----------------------------------------------------------------------------------------")
+			return "valid"
+		} else {
+			fmt.Println("\nCHECKS *NOT* PASSED")
+			fmt.Println("----------------------------------------------------------------------------------------")
+			return "invalid"
+		}
+	}
+	fmt.Println("\nCHECKS *NOT* PASSED")
+	fmt.Println("----------------------------------------------------------------------------------------")
+	return "invalid"
 }
