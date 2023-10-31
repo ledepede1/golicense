@@ -17,7 +17,7 @@ This project is designed to run on a server or host, and personally, I prefer to
 
 5. Run the `license.exe` to see the system in action.
 
-If you're running it on localhost, use this URL format: `localhost:port/api/{resourcename}/{license}/{ipaddress}`. If you're not using FiveM, it will be: `localhost:port/api/{license}/{ipaddress}`. If you need assistance, contact me on Discord via my [Discord server](https://discord.gg/XW9WGTrrmJ).
+If you're running it on localhost, use this URL format: `localhost:port/api/{resourcename}/{license}`. If you're not using FiveM, it will be: `localhost:port/api/{license}`. If you need assistance, contact me on Discord via my [Discord server](https://discord.gg/XW9WGTrrmJ).
 
 ## Usage
 
@@ -51,14 +51,13 @@ Feel free to contribute with your own examples and ideas.
 
 The system is implemented by integrating it into your script (examples are coming soon). It returns either an "invalid" or "valid" string, which you can use in various ways.
 
-This system essentially works as an API. If you're using FiveM (set 'UsingFiveM' to true in the `config.json`), you make a request like this: `localhost:8080/api/fivem-bungeejump/LQC1h2WQwDBxEm6QlDhM/123.456.789`. Let's break it down:
+This system essentially works as an API. If you're using FiveM (set 'UsingFiveM' to true in the `config.json`), you make a request like this: `localhost:8080/api/fivem-bungeejump/LQC1h2WQwDBxEm6QlDhM`. Let's break it down:
 
 - The IP is in my case set to localhost, as I run it locally.
 - The port can be defined in the `config.json`.
 - The resource name is next in the URL, followed by the license key.
-- The IP address concludes the request.
 
-The system then checks whether the license key exists, followed by an IP address check. If the provided IP matches the one associated with the license key in the database, and the resource name matches the one sent, it returns "valid"; otherwise, it returns "invalid".
+The system then checks whether the license key exists, followed by an IP address check. If the caller IP matches the one associated with the license key in the database, and the resource name matches the one sent, it returns "valid"; otherwise, it returns "invalid".
 
 ## Contributing
 
