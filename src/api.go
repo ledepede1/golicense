@@ -9,21 +9,28 @@ import (
 )
 
 func API(response http.ResponseWriter, request *http.Request) {
-	vars := mux.Vars(request)
-	license := vars["license"]
-	resourcename := vars["resourcename"]
 
-	fmt.Println("\n----------------------------------------------------------------------------------------")
-	fmt.Println("IP Connected:", funcs.CheckSentIP(request))
+	fmt.Println(request.Method)
 
-	checkDatabase := CheckDB(string(license), funcs.CheckSentIP(request), string(resourcename))
-	fmt.Fprint(response, checkDatabase)
+	if request.Method == http.MethodPost {
+		// Declaring url variables.
+		vars := mux.Vars(request)
+		license := vars["license"]
+		resourcename := vars["resourcename"]
+
+		fmt.Println("\n----------------------------------------------------------------------------------------")
+		fmt.Println("IP Connected:", funcs.CheckSentIP(request))
+
+		checkDatabase := CheckDB(string(license), funcs.CheckSentIP(request), string(resourcename))
+		fmt.Fprint(response, checkDatabase) // Response either "invalid" or "valid"
+	} else {
+		http.Error(response, "WRONG METHOD", http.StatusMethodNotAllowed)
+	}
 }
 
 func CheckDB(license string, actualip string, resourcename string) string {
-
 	fmt.Println("Begninning license check...")
-	fmt.Println("")
+	fmt.Println("") // Blank space
 
 	if funcs.CheckIfLicenseExist(license) {
 		fmt.Println("FIRST CHECK PASSED")

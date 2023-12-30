@@ -1,6 +1,6 @@
 {
         "UsingFiveM": true, 
         "Important": "Set to false if you're using something else than FiveM",
-        "DBUrl": "user:password@localhost/dbname",
+        "DBUrl": "user:password@tcp(ip:port)/db",
         "Port": "8080"
 }

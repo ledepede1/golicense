@@ -21,7 +21,7 @@ func main() {
 	router := mux.NewRouter()
 
 	fmt.Println(color.InBlackOverYellow("UsingFiveM:"), usingFivem)
-	router.HandleFunc(urlVars, API).Methods("GET")
+	router.HandleFunc(urlVars, API).Methods("POST")
 
 	fmt.Println(color.InBlackOverYellow("Listening on port:"), color.Green+port, color.Reset)
 	err := http.ListenAndServe(":"+port, router)
