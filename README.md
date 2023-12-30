@@ -51,7 +51,7 @@ Feel free to contribute with your own examples and ideas.
 
 The system is implemented by integrating it into your script (examples are coming soon). It returns either an "invalid" or "valid" string, which you can use in various ways.
 
-This system essentially works as an API. If you're using FiveM (set 'UsingFiveM' to true in the `config.json`), you make a request like this: `localhost:8080/api/fivem-bungeejump/LQC1h2WQwDBxEm6QlDhM`. Let's break it down:
+This system essentially works as an API. If you're using FiveM (set 'UsingFiveM' to true in the `config.json`), you make a post request like this: `localhost:8080/api/fivem-bungeejump/LQC1h2WQwDBxEm6QlDhM`. Let's break it down:
 
 - The IP is in my case set to localhost, as I run it locally.
 - The port can be defined in the `config.json`.
