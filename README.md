@@ -1,7 +1,7 @@
 # License System
 
-Welcome to the License System project! This system is designed to help secure your FiveM scripts, but it can also be adapted for various other use cases by changing the `"UsingFiveM": <bool>` setting in the `config.json`. While it's not intended to be the ultimate security solution, it is a very good free solution. 
-<p>Additionally, I have started work on a website where you can manage licenses, including adding and deleting them. Please note that the login system for this website should be strengthened if you plan to use it publicly.</p>
+Welcome to the License System project! This system is designed to help secure your FiveM scripts, but it can also be adapted for various other use cases by changing the `"UsingFiveM": <bool>` setting in the `config.json`. 
+<p>Additionally, I have started work on a website where you can manage licenses, including adding and deleting them. Please note that the login system for this website should be strengthened if you plan to use it public.</p>
 
 This project is designed to run on a server or host, and personally, I prefer to use a VPS. It's implemented in Golang, so some knowledge of Go is necessary to set it up according to your requirements.
 
